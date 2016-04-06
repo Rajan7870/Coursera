@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Color Guessing Game</title>
+</head>
+<body onload="do_game()">
+    <script type="text/javascript" charset="utf-8">
+        var color = ["azure", "black", "blue", "brown", "cyan", "gold",
+            "green", "gray", "magenta", "navy", "orange", "pink", "red",
+            "silver", "violet"];
+        var target;
+        var count = 0;
+        var finished = false;
+        var guess_input;
+        function do_game() {
+            color.sort();
+            target = Math.floor(Math.random() * color.length);
+            alert(color[target]);
+            do {
+                guess_input = prompt(
+                    "I am thinking of one of these colors\n\n" + color +
+                    "\n\nWhat color am I thinking of?"
+                )
+                count ++;
+            } while (check_guess());
+        }
+        function check_guess() {
+            var id = color.indexOf(guess_input);
+            if (id < 0)
+                alert("I don’t recognize that color!");
+            else if (id > target)
+                alert("Your input is alphabetically higher than mine!");
+            else if (id < target)
+                alert("Your input is alphabetically lower than mine!");
+            else {
+                body = document.getElementsByTagName("body")[0];
+                body.style.background = color[target];
+                alert("You are right! You took " + count + " guesses!");
+                return false;
+            }
+            return true;
+        }
+    </script>
+</body>
+</html>
